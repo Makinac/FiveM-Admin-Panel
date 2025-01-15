@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /
+
+# Přesměrování všech požadavků na index.php s předáním URL jako 'url' parametru
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
