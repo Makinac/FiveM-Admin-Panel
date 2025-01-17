@@ -1,0 +1,508 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e2f;
+    color: #fff;
+    display: flex;
+    height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #2a2a40;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sidebar .logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.sidebar .logo span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.sidebar .nav-links {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar .nav-links li {
+    width: 100%;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.sidebar .nav-links a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    color: #aaa;
+    padding: 10px 15px;
+    background-color: #383850;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sidebar .nav-links a i {
+    font-size: 18px;
+    width: 20px;
+    margin-right: 10px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar .nav-links a:hover {
+    background-color: #7D53DE;
+    color: #fff;
+}
+
+.sidebar .dropdown-menu {
+    display: none;
+    list-style: none;
+    margin: 10px 0;
+    padding: 10px 0;
+    background-color: #383850;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 1000;
+    width: 100%;
+}
+
+.sidebar .dropdown-menu li {
+    margin-bottom: 10px;
+}
+
+.sidebar .dropdown-menu li:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar .dropdown-menu a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #aaa;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.sidebar .dropdown-menu a i {
+    margin-right: 8px;
+}
+
+.sidebar .dropdown-menu a:hover {
+    color: #fff;
+    background-color: #7D53DE;
+}
+
+.sidebar .nav-links .dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Ikona pro dropdown je na konci */
+.sidebar .nav-links .dropdown-toggle i.fas.fa-chevron-down {
+    margin-left: auto;  /* Posune ikonu na pravou stranu */
+}
+
+.sidebar .nav-links .dropdown.active .dropdown-menu {
+    display: block;
+    opacity: 1;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 20px;
+    background-color: #2a2a40;
+}
+
+.header .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #383850;
+    padding: 10px;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.header .search-bar i {
+    color: #aaa;
+    margin-right: 10px;
+}
+
+.header .search-bar input {
+    flex: 1;
+    border: none;
+    background: none;
+    color: #fff;
+    font-size: 16px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.icon-button:hover {
+    color: #9573E5;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.header-tools {
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+    align-items: center;
+}
+
+.text-button {
+    text-decoration: none;
+    color: #aaa;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background-color: #383850;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-button:hover {
+    background-color: #9573E5;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Poloprůhledné pozadí */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centrovaní na střed obrazovky */
+    visibility: hidden; /* Skryje modal */
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Plynulý přechod zobrazení */
+    z-index: 1000;
+}
+
+.modal.visible {
+    visibility: visible; /* Zobrazí modal */
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #2a2a40;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transition: transform 0.3s ease; /* Efekt přechodu při otevření */
+    transform: scale(0.95); /* Výchozí zmenšení */
+}
+
+.modal.visible .modal-content {
+    transform: scale(1); /* Zvětší modal na 100% při otevření */
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #fff;
+}
+
+.modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #aaa;
+    text-align: left; /* Zarovnání vlevo */
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #383850;
+    color: #fff;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.modal-content input:focus {
+    outline: none;
+    background-color: #4a4a60;
+}
+
+/* Obecný styl pro tlačítka */
+.modal-content button {
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Plynulý přechod barvy */
+}
+
+.modal-content-submit {
+    background-color: #9573E5; /* Fialová barva pro ostatní tlačítka */
+}
+
+.modal-content-submit:hover {
+    background-color: #7D53DE; /* Tmavší fialová při najetí */
+}
+
+/* Specifický styl pro exit button (křížek) */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: #383850; /* Světle šedá barva */
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px; /* Lehce zaoblené rohy */
+    padding: 5px;
+}
+
+.close-button:hover {
+    background-color: #8d1a10; /* Světle šedá barva */
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center; /* Vertikální zarovnání */
+    margin-bottom: 15px;
+}
+
+.password-wrapper input {
+    flex: 1;
+    padding: 10px 40px 10px 10px; /* Extra prostor vpravo pro ikonu */
+    border-radius: 5px;
+    border: none;
+    background-color: #383850;
+    color: #fff;
+    font-size: 16px;
+    box-sizing: border-box;
+    height: 40px; /* Výška inputu */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 34%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 18px; /* Velikost ikony */
+    padding: 0; /* Žádné mezery */
+    height: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #fff;
+}
+
+button.modal-content-submit {
+    width: 100%;
+    padding: 10px;
+    background-color: #7D53DE;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.modal-content-submit:hover {
+    background-color: #9573E5;
+}
+
+.table-container {
+    padding: 20px;
+    background-color: #2a2a40;
+    border-radius: 8px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.table-header h2 {
+    margin: 0;
+    color: #fff;
+}
+
+.btn-new-user {
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #7D53DE;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-new-user:hover {
+    background-color: #9573E5;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th, .user-table td {
+    padding: 12px 15px;
+    text-align: left;
+    color: #fff;
+    border-bottom: 1px solid #383850;
+}
+
+.user-table th {
+    background-color: #383850;
+}
+
+.user-table tr:hover {
+    background-color: #4a4a60;
+}
+
+.btn-edit {
+    padding: 5px 10px;
+    color: #fff;
+    background-color: #7D53DE;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: #9573E5;
+}
+
+.permissions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dva sloupce */
+    gap: 10px; /* Menší mezera mezi položkami */
+    row-gap: 0px;
+    margin-top: 20px; /* Větší mezera mezi nadpisem a gridem */
+}
+
+.checkbox-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+    position: absolute;
+    opacity: 0; /* Skryje checkbox */
+    width: 100%; /* Pokryje celý box */
+    height: 100%;
+    cursor: pointer; /* Ukazatel myši */
+    z-index: 2; /* Zajištění, že je nad ostatními prvky */
+}
+
+.checkbox-container label {
+    display: block;
+    width: 100%; /* Box je celý klikací */
+    padding: 10px 15px;
+    text-align: center;
+    background-color: #383850; /* Výchozí šedé pozadí */
+    border-radius: 8px; /* Zaoblené rohy */
+    color: #ccc; /* Světlejší text */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    z-index: 1;
+}
+
+.checkbox-container input[type="checkbox"]:checked + label {
+    background-color: #7D53DE; /* Fialové pozadí při zaškrtnutí */
+    color: #fff; /* Bílý text při zaškrtnutí */
+}
+
+.checkbox-container label:hover {
+    background-color: #4a4a60; /* Zvýraznění při najetí myší */
+}
+
+.modal-content h2 {
+    margin-bottom: 25px; /* Větší mezera mezi nadpisem a gridem */
+}
+
+
+
+
+

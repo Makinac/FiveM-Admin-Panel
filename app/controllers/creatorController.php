@@ -1,10 +1,12 @@
 <?php
 
-class CreatorController
+class creatorController
 {
     public function index()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
+
             if (file_exists('app/config/config.json')) {
                 echo json_encode(['status' => 'error', 'message' => 'Config already exists']);
                 exit();
@@ -59,12 +61,12 @@ class CreatorController
                 exit();
             }
 
-            if (strlen($account['password']) < 8) {
+            if (strlen($account['password']) < 6) {
                 echo json_encode(['status' => 'error', 'message' => 'Password is too short']);
                 exit();
             }
 
-            if (strlen($account['username']) < 3) {
+            if (strlen($account['username']) < 2) {
                 echo json_encode(['status' => 'error', 'message' => 'Username is too short']);
                 exit();
             }
@@ -78,12 +80,15 @@ class CreatorController
 
             $users = [
                 [
+                    'id' => 1,
                     'username' => $account['username'],
-                    'password' => password_hash($account['password'], PASSWORD_DEFAULT)
+                    'password' => password_hash($account['password'], PASSWORD_DEFAULT),
+                    'master' => true,
+                    'permissions' => ['*']
                 ]
             ];
             file_put_contents('app/config/users.json', json_encode($users, JSON_PRETTY_PRINT));
-
+            
             echo json_encode(['status' => 'success', 'message' => 'OK']);
         } else {
             if (file_exists('app/config/config.json')) {

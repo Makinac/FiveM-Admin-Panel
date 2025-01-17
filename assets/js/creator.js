@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           })
           .catch((error) => {
-              alert("Check consokle for error");
+              alert("Check console for error");
               console.error('Error:', error);
           });
     });
